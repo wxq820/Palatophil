@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="card">
+    <view class="title">{{user.nickname || '未登录'}}</view>
+    <view class="subtitle">角色：{{user.role || '-'}} · 登录方式：{{user.loginType || '-'}}</view>
+  </view>
+
+  <view class="card">
+    <view class="btn-secondary" bindtap="onRefresh">刷新信息</view>
+    <view class="btn-primary" style="margin-top: 24rpx;" bindtap="onLogout">退出登录</view>
+  </view>
+</view>

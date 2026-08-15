@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/palatophil?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&connectionCollation=utf8mb4_unicode_ci
+    username: palatophil
+    password: palatophil123
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 强制每条连接 collation，避免 LIKE 中文比较不同 collation 返回 0 行
+      connection-init-sqls: ["SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"]
+  data:
+    redis:
+      host: localhost
+      port: 6380
+      password: redis123456
+      database: 0
+      timeout: 5s
+      lettuce:
+        pool:
+          max-active: 20
+          max-idle: 8
+          min-idle: 0
+
+# 业务配置
+palatophil:
+  jwt:
+    secret: ${JWT_SECRET:palatophil-jwt-secret-please-change-me-in-production-2026}
+    expire-hours: ${JWT_EXPIRE_HOURS:720}
+    header: Authorization
+    prefix: "Bearer "
+  wx:
+    appid: ${WX_APPID:wx0000000000000000}
+    secret: ${WX_SECRET:00000000000000000000000000000000}
+    mock-mode: ${WX_MOCK_MODE:true}
+
+logging:
+  level:
+    root: INFO
+    com.palatophil: DEBUG
+  file:
+    name: ${LOG_PATH:D:/tmp/palatophil-backend.log}
+  pattern:
+    console: '%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n'

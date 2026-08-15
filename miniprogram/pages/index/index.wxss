@@ -1,0 +1,6 @@
+/* pages/index/index.wxss */
+.recipe-item {
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+.recipe-item:last-child { border-bottom: none; }

@@ -1,0 +1,32 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <view class="card">
+    <view class="title-row">
+      <view class="title">标准配方</view>
+      <view class="btn-primary" bindtap="onCreateRecipe">+ 新建</view>
+    </view>
+    <view class="subtitle">左侧选择/编辑食谱，右侧实时计算实际用量（M2）</view>
+    <view class="search">
+      <input
+        placeholder="搜索食谱"
+        value="{{keyword}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+        confirm-type="search"
+      />
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="title">我的食谱（共 {{recipes.length}}）</view>
+    <view wx:if="{{loading}}" class="subtitle">加载中...</view>
+    <view wx:for="{{recipes}}" wx:key="id" class="recipe-item" data-id="{{item.id}}" bindtap="onRecipeTap">
+      <view class="row">
+        <view class="recipe-name">{{item.name}}</view>
+        <view class="meta">v{{item.version}} · {{item.ingredientCount || 0}} 项 · {{item.visibility === 'PUBLIC' ? '公开' : '私有'}}</view>
+      </view>
+      <view wx:if="{{item.description}}" class="subtitle">{{item.description}}</view>
+    </view>
+    <view wx:if="{{!loading && recipes.length === 0}}" class="subtitle">暂无食谱，点击右上角新建</view>
+  </view>
+</view>

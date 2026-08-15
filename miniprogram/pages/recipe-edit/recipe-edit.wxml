@@ -1,0 +1,43 @@
+<!-- pages/recipe-edit/recipe-edit.wxml -->
+<view class="container">
+  <view class="card">
+    <view class="title">基础信息</view>
+    <view class="row">
+      <input class="field" placeholder="食谱名称" value="{{form.name}}" bindinput="onField" data-key="name" />
+    </view>
+    <view class="row">
+      <textarea class="field" placeholder="描述（可选）" value="{{form.description}}" bindinput="onField" data-key="description" auto-height></textarea>
+    </view>
+    <view class="row">
+      <view class="picker" style="flex:1" bindtap="onPickServings">份数：{{form.servings}}</view>
+      <picker mode="selector" range="{{visibilityOptions}}" value="{{visibilityIndex}}" bindchange="onPickVisibility" style="flex:1">
+        <view class="picker">可见性：{{form.visibility === 'PUBLIC' ? '公开' : '私有'}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="title">食材块</view>
+    <view wx:for="{{form.blocks}}" wx:for-item="block" wx:key="tmpId" class="block">
+      <view class="row">
+        <input class="field" placeholder="块名（如 主料）" value="{{block.name}}" bindinput="onBlockField" data-tmp="{{block.tmpId}}" data-key="name" />
+        <view class="btn-danger" bindtap="onRemoveBlock" data-tmp="{{block.tmpId}}">删块</view>
+      </view>
+      <view wx:for="{{block.ingredients}}" wx:for-item="ing" wx:key="tmpId" class="ingredient-item">
+        <view class="name" bindtap="onPickIngredient" data-btmp="{{block.tmpId}}" data-itmp="{{ing.tmpId}}">
+          {{ing.ingredientName || '点击选择食材'}}
+        </view>
+        <input class="amount" type="digit" placeholder="克数" value="{{ing.amountG}}" bindinput="onIngredientField" data-btmp="{{block.tmpId}}" data-itmp="{{ing.tmpId}}" data-key="amountG" />
+        <view class="tag-pill" wx:if="{{ing.isAnchor === 1}}">★锚点</view>
+        <view class="btn-danger" style="padding:8rpx 16rpx" bindtap="onRemoveIngredient" data-btmp="{{block.tmpId}}" data-itmp="{{ing.tmpId}}">×</view>
+      </view>
+      <view class="btn-secondary" bindtap="onAddIngredient" data-tmp="{{block.tmpId}}" style="margin-top: 12rpx;">+ 添加食材</view>
+    </view>
+    <view class="btn-secondary" bindtap="onAddBlock">+ 添加食材块</view>
+  </view>
+
+  <view class="card">
+    <view class="btn-primary" bindtap="onSave">保存</view>
+    <view wx:if="{{recipeId}}" class="btn-danger" style="margin-top: 16rpx;" bindtap="onDelete">删除</view>
+  </view>
+</view>

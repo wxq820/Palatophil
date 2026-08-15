@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="card">
+    <view class="title">采购清单</view>
+    <view class="subtitle">食材自动去重合并 · 实时计算总价</view>
+    <view class="btn-secondary" bindtap="onGenerate">重新生成</view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">暂无采购清单</view>
+  </view>
+</view>

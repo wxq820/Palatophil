@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="card">
+    <view class="title">协同会话</view>
+    <view class="subtitle">单会话上限 20 人 · 实时同步</view>
+    <view class="btn-primary" bindtap="onCreate">发起会话</view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">暂无活跃会话</view>
+  </view>
+</view>
